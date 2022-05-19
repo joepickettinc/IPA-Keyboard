@@ -1,0 +1,46 @@
+Archived from groups: microsoft.public.windowsxp.general (More info?)
+
+I would remove this layout from the active layout set (if it is not done yet: Regional and
+Language Options -- Language tab -- Details... button), then run Regedit, navigate to:
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Keyboard Layouts]
+
+and find the text, that you see as the name of this layout (say, it is: Corrected US). The
+key in the left pane will be then:
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Keyboard Layouts\000XXXXX]
+
+(where XXXXX are the digits) with the values in the right pane something like:
+
+"Layout Display Name"="Corrected US"
+"Layout File"="kbdCorrected.dll"
+"Layout Id"="00XX"
+"Layout Text"="Corrected US"
+
+Then find and delete the file mentioned here as Layout File (kbdCorrected.dll in this
+example) first in \windows\system32\dllcache folder, then in \windows\system32 folder.
+
+Then navigate to
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Keyboard Layout\DosKeybCodes]
+
+in the left pane of Regedit, and find the value "000XXXXX"="xx" in the right pane
+(000XXXXX is the same number as above; substitute xx with the language code of this
+layout). Delete this line: right click 000XXXXX, and select: Delete.
+
+Then navigate in the left pane to
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Keyboard Layouts\000XXXXX]
+again, and delete this (i.e. 000XXXXX) key.
+
+--
+Mikhail Zhilin
+MS MVP (Windows - Shell/User)
+http://www.aha.ru/~mwz
+Sorry, no technical support by e-mail.
+Please reply to the newsgroups only.
+======
+On Sun, 21 Aug 2005 16:00:03 -0700, Zhervoskepet <Zhervoskepet@discussions.microsoft.com>
+wrote:
+
+>How do you uninstall a keyboard layout that you don't want to be on your
+>computer anymore?
